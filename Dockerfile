@@ -24,9 +24,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 # Postgresql python library
 # SQL support for ipython and PlantUML
 RUN conda install --quiet --yes psycopg2=2.9.1 && \
-	conda install -y -c conda-forge postgresql=13.3 pgspecial && \
+	conda install -y -c conda-forge postgresql=13.3 pgspecial=1.13.0 && \
     	conda clean -tipsy && \
-    pip install ipython-sql iplantuml mocodo_magic && \
+	pip install ipython-sql==0.4.0 iplantuml==0.1.1 mocodo_magic==1.0.3 && \
 	fix-permissions "${CONDA_DIR}" && \
 	fix-permissions "/home/${NB_USER}"
 
