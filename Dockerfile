@@ -1,4 +1,4 @@
-ARG BASE_CONTAINER=brunoe/jupyterutln-default
+ARG BASE_CONTAINER=brunoe/jupyterutln-default:develop
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Emmanuel Bruno <emmanuel.bruno@univ-tln.fr>"
