@@ -22,14 +22,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
   apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt
 
 # Postgresql python library
-RUN conda install --quiet --yes psycopg2 && \
-	conda install -y -c conda-forge postgresql pgspecial && \
-    	conda clean -tipsy && \
-	fix-permissions "${CONDA_DIR}" && \
-	fix-permissions "/home/${NB_USER}"
-
 # SQL support for ipython and PlantUML
-RUN pip install ipython-sql iplantuml && \
+RUN conda install --quiet --yes psycopg2=2.9.1 && \
+	conda install -y -c conda-forge postgresql=13.3 pgspecial && \
+    	conda clean -tipsy && \
+    pip install ipython-sql iplantuml mocodo_magic && \
 	fix-permissions "${CONDA_DIR}" && \
 	fix-permissions "/home/${NB_USER}"
 
@@ -39,17 +36,8 @@ ENV PGDATA=/home/jovyan/work/pgdata
 
 COPY initDB.sh /usr/local/bin/before-notebook.d/ 
 
-RUN pip install jupyterlab_sql && \
-	jupyter serverextension enable jupyterlab_sql --py --sys-prefix && \
-	jupyter lab build && \
-	fix-permissions "${CONDA_DIR}" && \
-        fix-permissions "/home/${NB_USER}"
-
-RUN  pip install mocodo_magic
-
-RUN jupyter lab --generate-config && \
+RUN ipython profile create && \
 	sed -i -e '/c.InteractiveShellApp.extensions = / s/= [^\]]*/= ["mocodo_magic","sql"]/' -e 's/# \(c.InteractiveShellApp.extensions\)/\1/' ~/.ipython/profile_default/ipython_config.py
-
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
