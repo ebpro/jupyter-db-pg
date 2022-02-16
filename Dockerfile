@@ -7,22 +7,24 @@ ENV PLANTUML_VERSION 1.2022.1
 ENV PLANTUML_SHA1 ac9847dac6687f5079793952cf981f8d75ff4515
 USER root
 
+
+
 # Install minimal dependencies 
-RUN apt-get update && apt-get install -y --no-install-recommends\
-	coreutils \
-	curl \
-	dnsutils \
-	gnupg \
-	graphviz \
-	inkscape \
-	iputils-ping \
-	net-tools \
-	pandoc \
-	postgresql-client \
-	procps \
-	tree \
-	ttf-bitstream-vera \
-	zsh && \
+RUN	apt-get update && apt-get install -y --no-install-recommends\
+		coreutils \
+		curl \
+		dnsutils \
+		gnupg \
+		graphviz \
+		inkscape \
+		iputils-ping \
+		net-tools \
+		pandoc \
+		postgresql-client \
+		procps \
+		tree \
+		ttf-bitstream-vera \
+		zsh && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt
 
 # Postgresql python library
@@ -33,6 +35,12 @@ RUN conda install --quiet --yes psycopg2=2.9.1 && \
 	pip install ipython-sql==0.4.0 iplantuml==0.1.1 mocodo_magic==1.0.3 && \
 	fix-permissions "${CONDA_DIR}" && \
 	fix-permissions "/home/${NB_USER}"
+
+RUN mkdir /usr/local/jre && \
+	curl -L https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.2%2B8/OpenJDK17U-jre_x64_linux_hotspot_17.0.2_8.tar.gz -o /usr/local/jre/jre.tgz && \
+	tar  zxf /usr/local/jre/jre.tgz --strip=1 -C /usr/local/jre && \
+	rm /usr/local/jre/jre.tgz
+ENV PATH /usr/local/jre/bin:$PATH
 
 RUN curl -L https://sourceforge.net/projects/plantuml/files/plantuml.${PLANTUML_VERSION}.jar/download -o /usr/local/bin/plantuml.jar && \
     echo "$PLANTUML_SHA1 */usr/local/bin/plantuml.jar" | sha1sum -c - 
