@@ -10,7 +10,7 @@ USER root
 # Install minimal dependencies 
 RUN apt-get update && apt-get install -y --no-install-recommends\
 	coreutils \
-	curl
+	curl \
 	dnsutils \
 	gnupg \
 	graphviz \
@@ -24,8 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 	ttf-bitstream-vera \
 	ttf-droid \
 	ttf-droid-nonlatin \
-	zsh 
-&& \
+	zsh && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt
 
 # Postgresql python library
