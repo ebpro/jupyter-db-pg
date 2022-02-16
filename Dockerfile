@@ -22,8 +22,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 	procps \
 	tree \
 	ttf-bitstream-vera \
-	ttf-droid \
-	ttf-droid-nonlatin \
 	zsh && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt
 
