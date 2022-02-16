@@ -3,14 +3,17 @@ FROM $BASE_CONTAINER
 
 LABEL maintainer="Emmanuel Bruno <emmanuel.bruno@univ-tln.fr>"
 
+ENV PLANTUML_VERSION 1.2022.1
+ENV PLANTUML_SHA1 ac9847dac6687f5079793952cf981f8d75ff4515
 USER root
 
 # Install minimal dependencies 
 RUN apt-get update && apt-get install -y --no-install-recommends\
 	coreutils \
+	curl
 	dnsutils \
 	gnupg \
-	graphviz ttf-bitstream-vera gsfonts \
+	graphviz \
 	inkscape \
 	iputils-ping \
 	net-tools \
@@ -18,8 +21,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 	postgresql-client \
 	procps \
 	tree \
-	zsh \
-	plantuml && \
+	ttf-bitstream-vera \
+	ttf-droid \
+	ttf-droid-nonlatin \
+	zsh 
+&& \
   apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt
 
 # Postgresql python library
@@ -31,7 +37,8 @@ RUN conda install --quiet --yes psycopg2=2.9.1 && \
 	fix-permissions "${CONDA_DIR}" && \
 	fix-permissions "/home/${NB_USER}"
 
-RUN curl https://kumisystems.dl.sourceforge.net/project/plantuml/plantuml.jar -o /usr/local/bin/plantuml.jar
+RUN curl -L https://sourceforge.net/projects/plantuml/files/plantuml.${PLANTUML_VERSION}.jar/download -o /usr/local/bin/plantuml.jar && \
+    echo "$PLANTUML_SHA1 */usr/local/bin/plantuml.jar" | sha1sum -c - 
 
 ENV PGDATA=/home/jovyan/work/pgdata
 
