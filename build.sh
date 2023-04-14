@@ -1,11 +1,2 @@
 #!/bin/bash
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-. ${DIR}/env.sh
-
-docker build \
-	--file Dockerfile \
-	-t ${BASE}:$SHA \
-	`[[ "$BRANCH" != "master" ]] && echo -t ${BASE}:$BRANCH` \
-	`[[ "$BRANCH" == "master" ]] && echo -t ${BASE}:latest` \
-	 .
+docker build --progress=plain -t brunoe/${PWD##*/}:$(git rev-parse --abbrev-ref HEAD) .

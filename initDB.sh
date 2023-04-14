@@ -1,5 +1,5 @@
 DB_NAME=DEMO_DB
 rm -rf $PGDATA/$DB_NAME
-initdb -D $PGDATA/$DB_NAME
-pg_ctl -D $PGDATA/$DB_NAME -l $PGDATA/../$DB_NAME.log start
-createdb --owner=jovyan jovyandb
+sudo -u jovyan initdb -D $PGDATA/$DB_NAME
+sudo -u jovyan pg_ctl -D $PGDATA/$DB_NAME -l $PGDATA/../$DB_NAME.log start
+sudo -u jovyan createdb --owner=jovyan jovyandb
