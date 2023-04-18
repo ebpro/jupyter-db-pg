@@ -1,4 +1,4 @@
-# Jupyterlab PostgreSQL Image
+# Jupyterlab PostgreSQL Image
 
 A jupyterlab image with postgresql installed and started.
 A database `demodb` is created for user `jovyan`.
