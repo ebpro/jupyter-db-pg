@@ -5,5 +5,7 @@ inkscape
 iputils-ping
 net-tools
 postgresql-client
+postgresql
 procps
 tree
+rsync

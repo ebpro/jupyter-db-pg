@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-WORKDIR=$HOME/JUPYTER_WORK_DIR
-
-echo brunoe/${PWD##*/}:$(git rev-parse --abbrev-ref HEAD) 
+WORKDIR=$HOME/JUPYTER_WORK
+IMAGE_REPO=brunoe
 
 docker run --rm -it \
 	--user root \
@@ -10,6 +9,6 @@ docker run --rm -it \
 	--volume $WORKDIR:/home/jovyan/work \
     --publish 8888:8888 \
     --env NB_UID=$UID \
-    brunoe/${PWD##*/}:$(git rev-parse --abbrev-ref HEAD) $@ 
-#	--env CHOWN_HOME_OPTS='-R'	--env CHOWN_HOME=yes \
+    ${IMAGE_REPO}/${PWD##*/}:$(git rev-parse --abbrev-ref HEAD) start-notebook.sh	
 	
+#        start-notebook.sh --notebook-dir=/home/jovyan/notebooks/	
