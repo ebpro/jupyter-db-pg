@@ -19,9 +19,7 @@ RUN conda install --quiet --yes psycopg2 && \
 	fix-permissions "${CONDA_DIR}" && \
 	fix-permissions "/home/${NB_USER}"
 
-COPY ./entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+COPY initdb.sh /usr/local/bin/before-notebook.d/
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
-ENTRYPOINT ["/entrypoint.sh"]
