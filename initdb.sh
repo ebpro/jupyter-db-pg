@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-PGDATA=${PGDATA:-/home/jovyan/srv/postgresql}
+PGDATA=${PGDATA:-/home/jovyan/work/srv/postgresql}
 DB_NAME=JOVYAN_DB
 PG_PATH=$(echo /usr/lib/postgresql/*/bin/)
 

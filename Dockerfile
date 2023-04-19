@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 # SQL support for ipython and PlantUML
 RUN conda install --quiet --yes psycopg2 && \
    	conda clean -tipy && \
-	pip install pgspecial ipython-sql iplantuml mocodo && \
+	pip install pgspecial ipython-sql mocodo && \
 	fix-permissions "${CONDA_DIR}" && \
 	fix-permissions "/home/${NB_USER}"
 
