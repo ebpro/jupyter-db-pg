@@ -38,9 +38,6 @@ RUN sed -i -e '/export APACHE_RUN_USER=/s/=.*/=jovyan/' \
 		chown -R $NB_USER /home/jovyan/var && \
 	sed -i -e 's/80/9090/g' /etc/apache2/sites-available/000-default.conf
 
-# Initialisation of the default database in the userspace (~/work)
-COPY initdb.sh /usr/local/bin/before-notebook.d/
-
 # Configuration of pgadmin4
 COPY pgadmin4/config_local.py  /opt/conda/lib/python3.10/site-packages/pgadmin4/config_local.py
 
@@ -56,7 +53,10 @@ RUN touch jupyter_config.py && \
 	cat /tmp/jupyter_pgadmin4_config.py >> /home/jovyan/.jupyter/jupyter_config.py
 
 # preconfigure localhost postgresql server for pgadmin4
-COPY pgadmin4//pgadmin4-localhostpg.json /
+COPY pgadmin4/pgadmin4-localhostpg.json /
+
+# Initialisation of the default database in the userspace (~/work)
+COPY before-notebook/* /usr/local/bin/before-notebook.d/
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID

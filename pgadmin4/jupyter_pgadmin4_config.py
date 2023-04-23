@@ -8,7 +8,6 @@ c.ServerProxy.servers.update(
                 '-e', 'SCRIPT_NAME={base_url}pgadmin4',
                 '--chdir', os.path.join(site.getsitepackages()[0], 'pgadmin4'),
                 "pgAdmin4:app",],
-    'new_browser_tab': False,
     'absolute_url': True,
     'timeout': 120,
     'launcher_entry': {

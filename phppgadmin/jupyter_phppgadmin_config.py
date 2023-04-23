@@ -3,7 +3,6 @@ import  os
 c.ServerProxy.servers.update(
   {'phppgadmin': {
     'command': ["/usr/sbin/apache2ctl","start"],
-    'new_browser_tab': False,
     'port': 80,
     'timeout': 20,
     "absolute_url": True,
