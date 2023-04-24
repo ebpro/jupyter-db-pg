@@ -58,5 +58,12 @@ COPY pgadmin4/pgadmin4-localhostpg.json /
 # Initialisation of the default database in the userspace (~/work)
 COPY before-notebook/* /usr/local/bin/before-notebook.d/
 
+RUN mkdir /initdb.d
+
+RUN wget https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip -O /tmp/dvdrental.zip && \
+	(cd /initdb.d && unzip /tmp/dvdrental.zip) && \
+	rm /tmp/dvdrental.zip
+
+
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
