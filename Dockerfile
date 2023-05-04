@@ -64,6 +64,5 @@ RUN wget https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental
 	(cd /initdb.d && unzip /tmp/dvdrental.zip) && \
 	rm /tmp/dvdrental.zip
 
-
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
