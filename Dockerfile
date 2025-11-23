@@ -1,4 +1,5 @@
-FROM brunoe/jupyter-base:develop
+ARG BASE=brunoe/jupyter-base:develop
+FROM $BASE
 
 USER root
 
